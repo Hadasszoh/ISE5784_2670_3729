@@ -29,7 +29,7 @@ public class Plane implements Geometry{
      */
     Plane ( Point point, Vector normal) {
         this.point = point;
-        this.normal = null;
+        this.normal = normal;
     }
 
     /**

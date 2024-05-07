@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Point {
     Double3 xyz;
-    public static final Double3 ZERO = Double3.ZERO;
+    public static final Point ZERO = new Point (Double3.ZERO);
     /**
      * constructor get 3 coordinate
      * @param x coordinate 1
