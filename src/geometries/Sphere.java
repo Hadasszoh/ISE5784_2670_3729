@@ -38,14 +38,9 @@ public class Sphere extends RadialGeometry {
 
 	@Override
 	public Vector getNormal(Point point) {
-		return null;
+		return point.subtract(center).normalize();
 	}
 
-	/**
-	 * print the Sphere objects
-	 * 
-	 * @return
-	 */
 	@Override
 	public String toString() {
 		return "Sphere{" + "center=" + center + ", radius=" + radius + '}';

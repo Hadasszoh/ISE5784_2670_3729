@@ -1,57 +1,59 @@
 package primitives;
 
 public class Ray {
-	
-	
-    final Point point;
-    final Vector vector;
 
-    /**
-     * simple constructor
-     * @param p
-     * @param v
-     */
-    public Ray(Point point, Vector vector) {
-        this.point = point;
-        this.vector = vector.normalize();
-    }
+	final Point point;
+	final Vector vector;
 
-    /**
-     * getter
-     * @return
-     */
-    public Point getPoint() {
-        return point;
-    }
+	/**
+	 * simple constructor
+	 * 
+	 * @param p
+	 * @param v
+	 */
+	public Ray(Point point, Vector vector) {
+		this.point = point;
+		this.vector = vector.normalize();
+	}
 
-    /**
-     * getter
-     * @return
-     */
-    public Vector getVector() {
-        return vector;
-    }
+	/**
+	 * getter
+	 * 
+	 * @return
+	 */
+	public Point getPoint() {
+		return point;
+	}
 
-    /**
-     * print  ray argument
-     * @return
-     */
-    @Override
-    public String toString() {
-        return point.toString() + vector.toString(); //is that correct?
-    }
+	/**
+	 * getter
+	 * 
+	 * @return
+	 */
+	public Vector getVector() {
+		return vector;
+	}
 
-    /**
-     * check if 2 arguments are equals
-     * @param o
-     * @return boolean
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o != null);
-        if (!(o instanceof Ray)) return false;
-        Ray ray = (Ray) o;
-        return point.equals(ray.point) && vector.equals(ray.vector);
-    }
+	/**
+	 * print ray argument
+	 * 
+	 * @return
+	 */
+	@Override
+	public String toString() {
+		return point.toString() + vector.toString(); // is that correct?
+	}
+
+	/**
+	 * check if 2 arguments are equals
+	 * 
+	 * @param o
+	 * @return boolean
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		return (obj instanceof Ray ray) && point.equals(ray.point) && vector.equals(ray.vector);
+	}
 }
