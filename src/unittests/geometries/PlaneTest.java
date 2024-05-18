@@ -8,43 +8,48 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * test class to check all function of Plane class
+ * Test class to check all functions of the Plane class.
+ * This class contains unit tests for the constructors and getNormal(Point) method of the Plane class.
  * 
- * @author David
- *
+ * @authord Hadass & Hodaya 
+ * 
  */
 class PlaneTest {
-	/**
-	 * test for constructor
-	 */
-	@Test
-	void testConstructor() {
-		// =============== Boundary Values Tests ==================
 
-		// check constructor two point the same
-		assertThrows(IllegalArgumentException.class,
-				() -> new Plane(new Point(1, 2, 6.3), new Point(1, 2, 6.3), new Point(0, 0, 0)),
-				"ERROR: ctor get two point the same");
+    /**
+     * Test for the constructor of the Plane class.
+     * This method tests the constructor for handling invalid input such as two identical points and collinear points.
+     */
+    @Test
+    void testConstructor() {
+        // =============== Boundary Values Tests ==================
 
-		// check constructor all point on the same line
-		assertThrows(IllegalArgumentException.class,
-				() -> new Plane(new Point(1, 2, 6.3), new Point(2, 4, 12.6), new Point(0.5, 1, 3.15)),
-				"ERROR: ctor get all point on the same line");
-	}
+        // Check constructor with two identical points
+        assertThrows(IllegalArgumentException.class,
+                () -> new Plane(new Point(1, 2, 6.3), new Point(1, 2, 6.3), new Point(0, 0, 0)),
+                "ERROR: Constructor should throw an exception when two points are the same");
 
-	/**
-	 * tests for getNormal(Point)
-	 */
-	@Test
-	void testGetNormal() {
-		// plane to tests
-		Plane p = new Plane(new Point(1, 1, 0), new Point(2, 1, 0), new Point(1, 2, 0));
+        // Check constructor with all points on the same line
+        assertThrows(IllegalArgumentException.class,
+                () -> new Plane(new Point(1, 2, 6.3), new Point(2, 4, 12.6), new Point(0.5, 1, 3.15)),
+                "ERROR: Constructor should throw an exception when all points are on the same line");
+    }
 
-		// ============ Equivalence Partitions Tests ==============
+    /**
+     * Test for the getNormal(Point) method of the Plane class.
+     * This method tests the correctness of the normal vector calculation for the plane.
+     */
+    @Test
+    void testGetNormal() {
+        // Plane for tests
+        Plane p = new Plane(new Point(1, 1, 0), new Point(2, 1, 0), new Point(1, 2, 0));
 
-		// test normal to plane (its can be 2 sides)
-		boolean bool = new Vector(0, 0, 1).equals(p.getNormal(new Point(3, 2, 0)))
-				|| new Vector(0, 0, -1).equals(p.getNormal(new Point(3, 2, 0)));
-		assertTrue(bool, " ERROR: getNormal() worng result");
-	}
+        // ============ Equivalence Partitions Tests ==============
+
+        // Test normal to plane (it can be in 2 opposite directions)
+        boolean bool = new Vector(0, 0, 1).equals(p.getNormal(new Point(3, 2, 0)))
+                || new Vector(0, 0, -1).equals(p.getNormal(new Point(3, 2, 0)));
+        assertTrue(bool, "ERROR: getNormal() returned the wrong result");
+    }
 }
+

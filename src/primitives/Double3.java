@@ -88,7 +88,7 @@ public class Double3 {
 
 	/**
 	 * Scale (multiply) floating point triad by a number into a new triad where each
-	 * number is multiplied by the number
+	 * number is -multiplied by the number
 	 * 
 	 * @param rhs right handle side operand for scaling
 	 * @return result of scale
@@ -110,7 +110,7 @@ public class Double3 {
 
 	/**
 	 * Product two floating point triads into a new triad where each couple of
-	 * numbers is multiplied
+	 * numbers is multiplied-
 	 * 
 	 * @param rhs right handle side operand for product
 	 * @return result of product

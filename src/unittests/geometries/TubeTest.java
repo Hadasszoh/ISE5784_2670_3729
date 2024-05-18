@@ -7,35 +7,28 @@ import geometries.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * test class to check all function of Tube class
+ * Test class to check all functions of the Tube class.
+ * This class contains unit tests for the getNormal(Point) method of the Tube class.
  * 
- * @author David
- *
+ * @authord Hadass & Hodaya
  */
 class TubeTest {
 
-	/**
-	 * test get normal
-	 */
-	@Test
-	void TestGetNormal() {
-		Ray ray = new Ray(Point.ZERO, new Vector(0, 0, 1));
-		Tube tube = new Tube(Math.sqrt(2), ray);
+    /**
+     * Test method for {@link geometries.Tube#getNormal(primitives.Point)}.
+     * This method tests the correctness of the getNormal function.
+     */
+    @Test
+    void TestGetNormal() {
+        Ray ray = new Ray(Point.ZERO, new Vector(0, 0, 1));
+        Tube tube = new Tube(Math.sqrt(2), ray);
 
-		// =============== Equivalence Partitions Tests ==============
-		// TC01: simple check
-		assertEquals(new Vector(1, 1, 0), tube.getNormal(new Point(1, 1, 2)), "the normal is not correct");
+        // =============== Equivalence Partitions Tests ==============
+        // TC01: Simple check for the normal vector
+        assertEquals(new Vector(1, 1, 0), tube.getNormal(new Point(1, 1, 2)), "The normal is not correct");
 
-		// =============== Boundary Values Tests ==================
-		// TC11: checking if the
-		assertEquals(new Vector(1, 1, 0), tube.getNormal(new Point(1, 1, 1)), "the normal is not correct");
-	}
-
-	/**
-	 * 
-	 */
-	@Test
-	void TestFindIntersections() {
-
-	}
+        // =============== Boundary Values Tests ==================
+        // TC11: Check normal vector when the point lies on the tube's surface along the axis
+        assertEquals(new Vector(1, 1, 0), tube.getNormal(new Point(1, 1, 1)), "The normal is not correct");
+    }
 }

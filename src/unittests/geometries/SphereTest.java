@@ -2,34 +2,31 @@ package unittests.geometries;
 
 import org.junit.jupiter.api.Test;
 import primitives.Point;
-import primitives.Ray;
 import primitives.Vector;
-import java.util.List;
-import geometries.*;
+import geometries.Sphere;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * test class to check all function of Sphere class
+ * Test class to check all functions of the Sphere class.
+ * This class contains unit tests for the getNormal(Point) method of the Sphere class.
  * 
- * @author David
- *
+ * @authord Hadass & Hodaya
  */
 class SphereTest {
-	Sphere sphere1 = new Sphere(10, new Point(1, 2, 3));// positive coordinate
-	Point p1 = new Point(-1, -2, -4);// negative coordinate
+    // Sphere with positive coordinate center
+    Sphere sphere1 = new Sphere(10, new Point(1, 2, 3));
+    // Point with negative coordinates
+    Point p1 = new Point(-1, -2, -4);
 
-	/***
-	 * The function checks the integrity of the getNormal function
-	 */
-	@Test
-	void getNormal() {
-		// positive coordinate sphere and point
-		// assertEquals(new
-		// Vector(0,3/Math.sqrt(36),5/Math.sqrt(36)),sphere1.getNormal(p1), " ")
-		assertEquals(new Vector(-2 / Math.sqrt(69), -4 / Math.sqrt(69), -7 / Math.sqrt(69)), sphere1.getNormal(p1),
-				"ERROR: TC 01");
-
-	}
-
+    /**
+     * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}.
+     * The method checks the correctness of the getNormal function.
+     */
+    @Test
+    void getNormal() {
+        // Positive coordinate sphere and point
+        assertEquals(new Vector(-2 / Math.sqrt(69), -4 / Math.sqrt(69), -7 / Math.sqrt(69)), sphere1.getNormal(p1),
+                "ERROR: TC 01");
+    }
 }
