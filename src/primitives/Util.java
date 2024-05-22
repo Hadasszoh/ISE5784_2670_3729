@@ -68,5 +68,26 @@ public abstract class Util {
 	public static double random(double min, double max) {
 		return Math.random() * (max - min) + min;
 	}
+	
+	/**
+	 * calculate the discriminant parameters for cylinder
+	 * 
+	 * @param rayDirection
+	 * @param rayOrigin
+	 * @param axisRay
+	 * @param radius
+	 * @return 3 parameters for discriminant
+	 */
+	public static double[] discriminantParam(Vector rayDirection, Point rayOrigin, Ray axisRay, double radius) {
+		// Calculate the coefficients of the quadratic equation that describes the
+		// intersection points
+		double a = rayDirection.xyz.d1 * rayDirection.xyz.d1 + rayDirection.xyz.d3 * rayDirection.xyz.d3;
+		double b = 2 * (rayOrigin.xyz.d1 - axisRay.getPoint().xyz.d1 * rayDirection.xyz.d1
+				+ 2 * (rayOrigin.xyz.d3 - axisRay.getPoint().xyz.d3) * rayDirection.xyz.d3);
+		double c = (rayOrigin.xyz.d1 - axisRay.getPoint().xyz.d1) * (rayOrigin.xyz.d1 - axisRay.getPoint().xyz.d1)
+				+ (rayOrigin.xyz.d3 - axisRay.getPoint().xyz.d3) * (rayOrigin.xyz.d3 - axisRay.getPoint().xyz.d3)
+				- radius * radius;
+		return new double[] { a, b, c };
+	}
 
 }
