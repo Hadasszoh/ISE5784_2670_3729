@@ -24,6 +24,15 @@ public class Point {
 	Point(Double3 xyz) {
 		this.xyz = xyz;
 	}
+	
+	/**
+	 * Getter for x coordinate
+	 * 
+	 * @return coordinate x
+	 */
+	public double getX() {
+		return xyz.d1;
+	}
 
 	/**
 	 * calculate the subtracting between two points
