@@ -12,7 +12,7 @@ import primitives.Ray;
 /**
  * The department implements operations for several geometric bodies
  * 
- * @author David
+ * @author 
  *
  */
 public class Geometries implements Intersectable {

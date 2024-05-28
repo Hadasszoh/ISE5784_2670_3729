@@ -20,29 +20,32 @@ public class Ray {
 	 * getter
 	 * 
 	 * @return
-	 */
-	public Point getPoint() {
-		return point;
-	}
-	
+	 */	
 	/**
 	 * get point on the ray
 	 * 
 	 * @param length distance from the start of the ray
 	 * @return new Point3D
 	 */
+	
+	public Point getPoint() {
+	return point;
+}
+	public Vector getVector() {
+	return vector;
+}
+	
+	
+
 	public Point getPoint(double length) {
 		return Util.isZero(length) ? point : point.add(vector.scale(length));
 	}
-
 	/**
 	 * getter
 	 * 
 	 * @return
 	 */
-	public Vector getVector() {
-		return vector;
-	}
+	
 
 	/**
 	 * print ray argument
