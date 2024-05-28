@@ -15,15 +15,6 @@ public class Point {
 	public Point(double x, double y, double z) {
 		this.xyz = new Double3(x, y, z);
 	}
-	
-	/**
-	 * Getter for x coordinate
-	 * 
-	 * @return coordinate x
-	 */
-	public double getX() {
-		return xyz.d1;
-	}
 
 	/**
 	 * simple constructor (gets argument of Double3 that contain 3 coordinates)

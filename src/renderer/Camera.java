@@ -27,11 +27,7 @@ public class Camera implements Cloneable{
 	}
 	
 	public static class Builder{
-		 private final Camera camera;
-		 
-		 public Builder() {
-			 camera = new Camera();
-		 }
+		 private final Camera camera = new Camera();
 		 
 		 /**
 	         * Set the location of the camera
@@ -89,7 +85,7 @@ public class Camera implements Cloneable{
 	         * @return Camera
 	         * @throws CloneNotSupportedException
 	         */
-	        public Camera build() throws CloneNotSupportedException {
+	        public Camera build() throws CloneNotSupportedException  {
 	            String missingResource = "Missing Resource";
 	            if(camera.location == null)
 	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"location");
@@ -107,7 +103,7 @@ public class Camera implements Cloneable{
 	            if(camera.distance < 0.0)
 	                throw new IllegalArgumentException("Negative distance");
 
-	            return (Camera) camera.clone();
+	            return (Camera)camera.clone();
 	        }	 
 	}
 	
