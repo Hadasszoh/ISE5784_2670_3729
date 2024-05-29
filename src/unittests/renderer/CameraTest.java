@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import primitives.*;
 import renderer.*;
-import scene.Scene;
+//import scene.Scene;
 
 /**
  * Testing Camera Class

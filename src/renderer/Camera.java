@@ -5,8 +5,11 @@ import java.util.MissingResourceException;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
+import static primitives.Util.isZero;
+import static primitives.Util.alignZero;
 
-public class Camera implements Cloneable{
+
+public class Camera implements Cloneable{// שיבוט של אובייקט קיים מבלי לשנות את האובייקט המקורי
 	private Point location;
 	
 	private Vector vTo;
@@ -18,13 +21,65 @@ public class Camera implements Cloneable{
 	private double distance = 0.0;
 	
 	
-	private Camera() {
-		
-	}
+	private Camera() {}
 	
 	public static Builder getBuilder() {
 		return new Builder();
 	}
+	
+
+
+
+public Ray constructRay(int nX, int nY, int j, int i) {
+        if (nY == 0 || nX == 0) {
+            throw new IllegalArgumentException("It is impossible to divide by 0");
+        }
+        Point Pc = location.add(vTo.scale(distance));
+        double Ry = height / nY;
+        double Rx = width / nX;
+
+        double Yi = -1 * (i - (nY - 1) / 2.0) * Ry;
+        double Xj = (j - (nX - 1) / 2.0) * Rx;
+
+        Point Pij = Pc;
+        if (!isZero(Xj)) {
+            Pij = Pij.add(vRight.scale(Xj));
+        }
+
+        if (!isZero(Yi)) {
+            Pij = Pij.add(vUp.scale(Yi));
+        }
+
+        return new Ray(location, Pij.subtract(location));
+    }
+
+public Point getLocation() {
+	return location;
+}
+
+public Vector getvTo() {
+	return vTo;
+}
+
+public Vector getvRight() {
+	return vRight;
+}
+
+public Vector getvUp() {
+	return vUp;
+}
+
+public double getWidth() {
+	return width;
+}
+
+public double getHeight() {
+	return height;
+}
+
+public double getDistance() {
+	return distance;
+}
 	
 	public static class Builder{
 		 private final Camera camera = new Camera();
@@ -85,61 +140,30 @@ public class Camera implements Cloneable{
 	         * @return Camera
 	         * @throws CloneNotSupportedException
 	         */
-	        public Camera build() throws CloneNotSupportedException  {
+	        public Camera build() {   // אם זה לא חוקי- 
 	            String missingResource = "Missing Resource";
 	            if(camera.location == null)
 	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"location");
 	            if(camera.vTo == null || camera.vUp == null)
 	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"direction");
 	            if(camera.height == 0.0 || camera.width == 0.0)
-	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpSize");
+	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpSize");// parameters== null מאותחל 
 	            if(camera.distance == 0.0)
 	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpDistance");
 
 	            if(camera.vTo.crossProduct(camera.vUp).length() == 0)
 	                throw new IllegalArgumentException("Vto and Vup are parallel");
 	            if(camera.height < 0.0 || camera.width < 0.0)
-	                throw new IllegalArgumentException("Negative size");
+	                throw new IllegalArgumentException("Negative size");// checking the parameters himself 
 	            if(camera.distance < 0.0)
 	                throw new IllegalArgumentException("Negative distance");
-
-	            return (Camera)camera.clone();
-	        }	 
+	            try
+	            {
+		            return (Camera)camera.clone();
+	            } catch (CloneNotSupportedException e) {
+	            
+	            	throw  new RuntimeException(e);
+	            }
+	        }
 	}
-	
-	public Ray constructRay(int nX, int nY, int j, int i) {
-		return null;
-	}
-	
-	public Point getLocation() {
-		return location;
-	}
-	
-	public Vector getvTo() {
-		return vTo;
-	}
-	
-	public Vector getvRight() {
-		return vRight;
-	}
-	
-	public Vector getvUp() {
-		return vUp;
-	}
-	
-	public double getWidth() {
-		return width;
-	}
-	
-	public double getHeight() {
-		return height;
-	}
-	
-	public double getDistance() {
-		return distance;
-	}
-	
-	
-	
 }
-
