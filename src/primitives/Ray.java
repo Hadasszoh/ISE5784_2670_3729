@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 public class Ray {
 
 	final Point point;
@@ -68,5 +70,26 @@ public class Ray {
 		if (this == obj)
 			return true;
 		return (obj instanceof Ray ray) && point.equals(ray.point) && vector.equals(ray.vector);
+	}
+
+
+	/**
+	 * find the closest point to ray's head
+	 *
+	 * @return the closest Point
+	 */
+	public Point findClosestPoint(List<Point> list) {	//מקבלת רשימה של נקודות ומחזירה את הנקודה שהכי קרובה לראש הקרן
+		if (list == null)	//אם אין נקודות ברשימה, זה מחזיר null
+			return null;
+
+		double distance = Double.POSITIVE_INFINITY;
+		Point closest = null;
+//עובר על כל הנקודות ברשימה ובודק לכל אחת אם היא יותר קרובה מהנקודה הכי קרובה עד עכשיו לראש הקרן
+		for (Point p : list)    //find the closest point
+			if (p.distance(point) < distance) {
+				distance = p.distance(point);
+				closest = p;
+			}
+		return closest;
 	}
 }
