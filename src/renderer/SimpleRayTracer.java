@@ -9,11 +9,11 @@ import scene.Scene;
 /**
  * This class represents a simple ray tracer
  *
- * @author Alon
- * @author Meir
+ * @author Hodaya
+ * @author Hadass
  */
 
-public class SimpleRayTracer extends RayTracerBase {
+public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
 
     /**
      * constructor for scene

@@ -6,8 +6,8 @@ import primitives.Double3;
 /**
  * This class represents ambient light
  *
- * @author Alon
- * @author Meir
+ * @author Hodaya
+ * @author Hadass
  */
 public class AmbientLight {
 

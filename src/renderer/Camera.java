@@ -58,7 +58,7 @@ public class Camera implements Cloneable{// שיבוט של אובייקט קי�
 
 
 	/**
-	 * print a grid of interval*interval pixels squares
+	 * print a grid of interval*interval pixels squares הוא עושה את הרשת 
 	 *
 	 * @param interval square edges size
 	 * @param color grid's color
@@ -197,44 +197,6 @@ public double getDistance() {
 			return this;
 		}
 
-	        /**
-	         * Build the camera
-	         * @return Camera
-	         * @throws CloneNotSupportedException
-	         
-	        public Camera build() {   // אם זה לא חוקי- 
-	            String missingResource = "Missing Resource";
-	            if(camera.location == null)
-	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"location");
-	            if(camera.vTo == null || camera.vUp == null)
-	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"direction");
-	            if(camera.height == 0.0 || camera.width == 0.0)
-	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpSize");// parameters== null מאותחל 
-	            if(camera.distance == 0.0)
-	                throw new MissingResourceException(missingResource,Camera.class.getSimpleName(),"vpDistance");
-
-	            if(camera.vTo.crossProduct(camera.vUp).length() == 0)
-	                throw new IllegalArgumentException("Vto and Vup are parallel");
-	            if(camera.height < 0.0 || camera.width < 0.0)
-	                throw new IllegalArgumentException("Negative size");// checking the parameters himself 
-	            if(camera.distance < 0.0)
-	                throw new IllegalArgumentException("Negative distance");
-
-				if (camera.imageWriter == null)
-					throw new MissingResourceException(missing, nameClass, "imageWriter");
-
-				if (camera.rayTracer == null)
-					throw new MissingResourceException(missing, nameClass, "rayTracer");
-
-
-				try
-	            {
-		            return (Camera)camera.clone();
-	            } catch (CloneNotSupportedException e) {
-	            
-	            	throw  new RuntimeException(e);
-	            }
-	        }*/
 	     public Camera build() {   // אם זה לא חוקי- 
 	            String missingResource = "Missing Resource";
 	            if(camera.location == null)

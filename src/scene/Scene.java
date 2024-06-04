@@ -7,8 +7,8 @@ import primitives.Color;
 /**
  * This class represents a scene
  *
- * @author Alon
- * @author Meir
+ * @author Hodaya
+ * @author Hadass
  */
 public class Scene {
     /**

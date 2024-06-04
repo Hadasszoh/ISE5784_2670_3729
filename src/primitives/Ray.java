@@ -74,7 +74,7 @@ public class Ray {
 
 
 	/**
-	 * find the closest point to ray's head
+	 * find the closest point to ray's head מחזירה את הנקודה שהכי קרובה לראש הקרן 
 	 *
 	 * @return the closest Point
 	 */

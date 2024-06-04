@@ -7,8 +7,8 @@ import scene.Scene;
 /**
  * This abstract class represents a ray tracer
  *
- * @author Alon
- * @author Meir
+ * @author Hodaya
+ * @author Hadass
  */
 public abstract class RayTracerBase {
     /**
