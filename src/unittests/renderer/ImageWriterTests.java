@@ -6,14 +6,14 @@ import primitives.Color;
 
 import static primitives.Util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+//import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
  * test image writing
  *
- * @author Alon
- * @author Meir
+ * @author Hadass 
+ * @author 
  */
 class ImageWriterTests {
 

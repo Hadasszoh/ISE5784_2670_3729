@@ -254,10 +254,10 @@ public double getDistance() {
 	                throw new IllegalArgumentException("Negative distance");
 
 				if (camera.imageWriter == null)
-					throw new MissingResourceException(missing, nameClass, "imageWriter");
+					throw new MissingResourceException(missingResource,Camera.class.getName(),"imageWriter");
 
 				if (camera.rayTracer == null)
-					throw new MissingResourceException(missing, nameClass, "rayTracer");
+					throw new MissingResourceException(missingResource, Camera.class.getName(), "rayTracer");
 
 
 				try
