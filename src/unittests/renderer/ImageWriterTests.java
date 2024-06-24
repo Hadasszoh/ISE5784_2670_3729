@@ -13,7 +13,7 @@ import static primitives.Util.*;
  * test image writing
  *
  * @author Hadass 
- * @author 
+ * @author Hodaya
  */
 class ImageWriterTests {
 
