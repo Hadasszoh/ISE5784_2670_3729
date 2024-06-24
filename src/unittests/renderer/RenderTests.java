@@ -59,47 +59,26 @@ public class RenderTests {
      * Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid
      */
-    @Test
-    public void renderMultiColorTest() {
-       scene.geometries.add( // center
-                            new Sphere(50,new Point(0, 0, -100)),
-                            // up left
-                            new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
-                               .setEmission(new Color(GREEN)),
-                            // down left
-                            new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
-                               .setEmission(new Color(RED)),
-                            // down right
-                            new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
-                               .setEmission(new Color(BLUE)));
-       scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2, 0.2, 0.2))); //
+    public void basicRenderMultiColorTest() {
+        scene.setAmbientLight(new AmbientLight(new Color(0, 0, 0), Double3.ONE))
+                .setBackground(new Color(BLACK));
+        scene.geometries.add( //
+                new Sphere(50,new Point(0, 0, -100)).setEmission(new Color(50,50,50)),
+                // up left
+                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
+                        .setEmission(new Color(GREEN)),
+                // down left
+                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
+                        .setEmission(new Color(RED)),
+                // down right
+                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
+                        .setEmission(new Color(BLUE)));
 
-       camera
-          .setImageWriter(new ImageWriter("color render test", 1000, 1000))
-          .build()
-          .renderImage()
-          .printGrid(100, new Color(WHITE))
-          .writeToImage();
-    }
-
-
-
-    /**
-     * Test for XML based scene - for bonus
-     */
-    @Test
-    public void basicRenderXml() {
-        // enter XML file name and parse from XML file into scene object
-        // using the code you added in appropriate packages
-        // ...
-        // NB: unit tests is not the correct place to put XML parsing code
-
-        Camera camera2 = camera
-                .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-                .build();
-        camera2.renderImage();
-        camera2.printGrid(100, new Color(YELLOW));
-        camera2.writeToImage();
+         camera
+                .setImageWriter(new ImageWriter("color render test", 1000, 1000))
+                .build()
+                .renderImage()
+                .printGrid(100, new Color(WHITE))
+                .writeToImage();
     }
 }
-

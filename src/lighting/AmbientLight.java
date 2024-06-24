@@ -4,46 +4,31 @@ import primitives.Color;
 import primitives.Double3;
 
 /**
- * This class represents ambient light
- *
- * @author Hodaya
- * @author Hadass
+ * AmbientLight class represents a light source in the scene.
  */
-public class AmbientLight {
-
-    private final Color intensity;
+public class AmbientLight extends Light {
 
     /**
-     * black ambient light (no light)
-     */
-    public static AmbientLight NONE = new AmbientLight(Color.BLACK, 0d);
-
-    /**
-     * constructor for the intensity
+     * Constructor of the class
      *
-     * @param IA original intensity of the lighting
-     * @param KA attenuation coefficient of the lighting
+     * @param iP - Color of the ambient light
+     * @param kA - Double3 of the ambient light
      */
-    public AmbientLight(Color IA, Double3 KA) {
-        intensity = IA.scale(KA);
+    public AmbientLight(Color iP, Double3 kA) {
+        super(iP.scale(kA));
     }
 
     /**
-     * constructor for the intensity
+     * Constructor of the class
      *
-     * @param IA original intensity of the lighting
-     * @param KA attenuation coefficient of the lighting
+     * @param iP - Color of the ambient light
+     * @param kA - double of the ambient light
      */
-    public AmbientLight(Color IA, double KA) {
-        intensity = IA.scale(KA);
-    }
-
+  //  public AmbientLight(Color iP, double kA) {
+    //   super(iP.scale(kA));
+   // }
     /**
-     * getter for intensity
-     *
-     * @return intensity
+     * The default constructor
      */
-    public Color getIntensity() {
-        return intensity;
-    }
+    public static final AmbientLight NONE = new AmbientLight(Color.BLACK,new Double3(0,0,0));
 }

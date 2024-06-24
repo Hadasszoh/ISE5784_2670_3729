@@ -1,7 +1,11 @@
 package scene;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
 
 /**
@@ -39,7 +43,19 @@ public class Scene {
     public Scene(String name) {
         this.name = name;
     }
+    
+    public List<LightSource> lights = new ArrayList<>();
 
+    /**
+     * Sets the lights for the scene.
+     *
+     * @param  lights  the list of light sources to set
+     * @return        the updated Scene object
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
+        return this;
+    }
     /**
      * setter for scene's background color
      *

@@ -1,7 +1,7 @@
 package primitives;
 
 import java.util.List;
-
+import geometries.Intersectable.GeoPoint;
 public class Ray {
 
 	final Point point;
@@ -17,6 +17,10 @@ public class Ray {
 		this.point = point;
 		this.vector = vector.normalize();
 	}
+	public Point findClosestPoint(List<Point> points) {
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
 
 	/**
 	 * getter
@@ -71,25 +75,21 @@ public class Ray {
 			return true;
 		return (obj instanceof Ray ray) && point.equals(ray.point) && vector.equals(ray.vector);
 	}
+	public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
 
+        GeoPoint closestPoint = null;
+        double minDistance = Double.MAX_VALUE;
+        double geoPointDistance; // the distance between the "this.p0" to each point in the list
 
-	/**
-	 * find the closest point to ray's head מחזירה את הנקודה שהכי קרובה לראש הקרן 
-	 *
-	 * @return the closest Point
-	 */
-	public Point findClosestPoint(List<Point> list) {	//מקבלת רשימה של נקודות ומחזירה את הנקודה שהכי קרובה לראש הקרן
-		if (list == null)	//אם אין נקודות ברשימה, זה מחזיר null
-			return null;
-
-		double distance = Double.POSITIVE_INFINITY;
-		Point closest = null;
-//עובר על כל הנקודות ברשימה ובודק לכל אחת אם היא יותר קרובה מהנקודה הכי קרובה עד עכשיו לראש הקרן
-		for (Point p : list)    //find the closest point
-			if (p.distance(point) < distance) {
-				distance = p.distance(point);
-				closest = p;
-			}
-		return closest;
-	}
+        if (!geoPointList.isEmpty()) {
+            for (var geoPoint : geoPointList) {
+                geoPointDistance = this.getPoint().distance(geoPoint.point);
+                if (geoPointDistance < minDistance) {
+                    minDistance = geoPointDistance;
+                    closestPoint = geoPoint;
+                }
+            }
+        }
+        return closestPoint;
+    }
 }

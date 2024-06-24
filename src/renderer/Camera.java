@@ -70,6 +70,7 @@ public class Camera implements Cloneable{// שיבוט של אובייקט קי�
 			for (int i = 0; i < imageWriter.getNy(); i++)
 				if (isZero(j % interval) || isZero(i % interval))
 					imageWriter.writePixel(j, i, color);
+		imageWriter.writeToImage();
 		return this;
 	}
 
