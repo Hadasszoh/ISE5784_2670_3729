@@ -17,46 +17,46 @@ public class Triangle extends Polygon {
 	public Triangle(Point point1, Point point2, Point point3) {
 		super(point1, point2, point3);
 	}
-	
-	@Override
-	public List<Point> findIntersections(Ray ray) {
+	 /**
+     * @param ray the ray to find intersections with Triangle
+     * @return the list of intersections
+     */
+    //Barycentric Coordinates
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List <Point> intersectionList = plane.findIntersections(ray);
+        if(intersectionList == null)
+            return null;
+        Point intersectionPoint = intersectionList.getFirst();
+        Vector v0;
+        Vector v1;
+        Vector v2;
+        try {
+            v0 = vertices.get(1).subtract(vertices.get(0));
+            v1 = vertices.get(2).subtract(vertices.get(0));
+            v2 = intersectionPoint.subtract(vertices.get(0));
+        }
+        catch (IllegalArgumentException e) {
+            return null;
+        }
 
-		Vector rayDirection = ray.getVector();
+        double d00 = v0.dotProduct(v0);
+        double d01 = v0.dotProduct(v1);
+        double d11 = v1.dotProduct(v1);
+        double d20 = v2.dotProduct(v0);
+        double d21 = v2.dotProduct(v1);
 
-		// point of ray p
-		Point p0 = ray.getPoint();
-	
-		Point p=plane.findIntersections(ray).get(0); // שומר את נקודת החיתוך שחוזרת מהמישור
-		if(p==null)
-			return null;
+        double denom = d00 * d11 - d01 * d01;
 
-		// 3 points of 3 triangle vertex נקודות
-		Point p1 = vertices.get(0);
-		Point p2 = vertices.get(1);
-		Point p3 = vertices.get(2);
+        double v = (d11 * d20 - d01 * d21) / denom;
+        double w = (d00 * d21 - d01 * d20) / denom;
+        double u = 1.0 - v - w;
 
-		// calculate the direction from any vertex to ray p0 וקוטורים שיורדים  מהקרן 
-		Vector vector1 = p1.subtract(p0);
-		Vector vector2 = p2.subtract(p0);
-		Vector vector3 = p3.subtract(p0);
+        if (v > 0 && w > 0 && u > 0 && v < 1 && w < 1 && u < 1) {
+            return List.of(new GeoPoint(this,intersectionPoint));
+        } else {
+            return null;            // Point is outside the triangle
 
-		// calculate the cross product between 3 vectors נורמל
-		Vector crossProduct1 = vector1.crossProduct(vector2);
-		Vector crossProduct2 = vector2.crossProduct(vector3);
-		Vector crossProduct3 = vector3.crossProduct(vector1);
-
-		// calculate if the dot product between ray direction and vectors are positive מכפלה סקאלרית
-		// or negative
-		double dotProduct1 = rayDirection.dotProduct(crossProduct1);
-		double dotProduct2 = rayDirection.dotProduct(crossProduct2);
-		double dotProduct3 = rayDirection.dotProduct(crossProduct3);
-
-		// check if all dot product result is with same sign  - בודק שזה במשולש עצמו האם הוא לא אפס
-		if ((dotProduct1 > 0 && dotProduct2 > 0 && dotProduct3 > 0)
-				|| (dotProduct1 < 0 && dotProduct2 < 0 && dotProduct3 < 0)) {
-			return List.of(p);// מחזירה רשימה שבתוכה הנקודה 
-		}
-
-		return null;
-	}
+        }
+    }
 }

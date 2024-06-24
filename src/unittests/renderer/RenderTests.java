@@ -49,10 +49,40 @@ public class RenderTests {
         Camera camera1 =
                 camera.setImageWriter(new ImageWriter("base render test", 1000, 1000))
                         .build();
-        camera1.renderImage();
-        camera1.printGrid(100, new Color(YELLOW));
+        camera1.renderImage(); // color
+        camera1.printGrid(100, new Color(YELLOW)); // pasim
         camera1.writeToImage();
     }
+    
+    // For stage 6 - please disregard in stage 5
+    /**
+     * Produce a scene with basic 3D model - including individual lights of the
+     * bodies and render it into a png image with a grid
+     */
+    @Test
+    public void renderMultiColorTest() {
+       scene.geometries.add( // center
+                            new Sphere(50,new Point(0, 0, -100)),
+                            // up left
+                            new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100))
+                               .setEmission(new Color(GREEN)),
+                            // down left
+                            new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100))
+                               .setEmission(new Color(RED)),
+                            // down right
+                            new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))
+                               .setEmission(new Color(BLUE)));
+       scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.2, 0.2, 0.2))); //
+
+       camera
+          .setImageWriter(new ImageWriter("color render test", 1000, 1000))
+          .build()
+          .renderImage()
+          .printGrid(100, new Color(WHITE))
+          .writeToImage();
+    }
+
+
 
     /**
      * Test for XML based scene - for bonus

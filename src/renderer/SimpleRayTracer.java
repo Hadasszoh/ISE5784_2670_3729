@@ -5,6 +5,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
 import scene.Scene;
+import geometries.Intersectable.GeoPoint;
 
 /**
  * This class represents a simple ray tracer
@@ -27,7 +28,7 @@ public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
     @Override
     //עוקבת אחרי הקרן ומחזירה את הצבע של הגוף הכי קרוב שהקרן פוגעת בו
     public Color traceRay(Ray ray) {
-        Point point = ray.findClosestPoint(scene.geometries.findIntersections(ray));
+        GeoPoint point = ray.findClosestPoint(scene.geometries.findIntersections(ray));
         //אם הקרן לא חותכת שום גוף, מחזירים את צבע הרקע
         if (point == null)
             return scene.background;
@@ -41,7 +42,9 @@ public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
      * @return the color
      */
     //מחזירה את הצבע של התאורה
-    private Color calcColor(Point point) {
-        return scene.ambientLight.getIntensity();
+    private Color calcColor(GeoPoint geoPoint) {
+    	
+    	//GeoPoint gp=new GeoPoint
+        return scene.ambientLight.getIntensity().add(geoPoint.geometry.getEmission());
     }
 }

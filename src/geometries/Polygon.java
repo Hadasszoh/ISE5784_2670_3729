@@ -2,6 +2,7 @@ package geometries;
 
 import static primitives.Util.isZero;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import primitives.Point;
@@ -14,7 +15,7 @@ import primitives.Vector;
  * 
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
 	/** List of polygon's vertices */
 	protected final List<Point> vertices;
 	/** Associated plane in which the polygon lays */
@@ -83,14 +84,37 @@ public class Polygon implements Geometry {
 		}
 	}
 
-	@Override
-	public Vector getNormal(Point point) {
-		return plane.getNormal();
+	
+		/**
+	      * Finds intersections between the given ray and the list of points.
+	      * @param ray The ray to find intersections with.
+	      * @return A list of points representing the intersections with the ray.
+	      */
+	     @Override
+	     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+	          List <Point> intersectionList = plane.findIntersections(ray);
+	             if(intersectionList == null)
+	                 return null;
+	             Point intersectionPoint = intersectionList.getFirst();
+	             List <Double> listNum = new ArrayList<>();
+	             // Check if intersection point is inside the polygon
+	             for (int i = 0; i < vertices.size(); i++) {
+	                 Vector v1 =  vertices.get(i).subtract(ray.getPoint());
+	                 Vector v2 =  vertices.get((i+1)%vertices.size()).subtract(ray.getPoint());
+	                 Vector n = v1.crossProduct(v2);
+	                 double num = n.dotProduct(ray.getVector());
+	                 if (isZero(num)) {
+	                     return null;
+	                 }
+	                 listNum.add(num);
+	             }
+	             if (listNum.stream().allMatch(value -> value > 0) || listNum.stream().allMatch(value -> value < 0)) {
+	                 return List.of(new GeoPoint(this,intersectionPoint));
+	             }
+	             return null;
+	     }
+	    @Override
+	    public Vector getNormal(Point point) { return plane.getNormal(); }
+
 	}
 	
-	@Override
-	public List<Point> findIntersections(Ray ray) {
-		return null;
-	}
-
-}

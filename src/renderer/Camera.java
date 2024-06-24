@@ -36,17 +36,19 @@ public class Camera implements Cloneable{// שיבוט של אובייקט קי�
 	/**
 	 * goes over all of the pixels and color them according to the scene
 	 */
-	public void renderImage() {
+	public Camera renderImage() {
 		for(int i=0;i< imageWriter.getNy();i++)
 			for(int j=0;j< imageWriter.getNx();j++)
 				castRay(imageWriter.getNx(),imageWriter.getNy(),j,i);
+		return this;
 		//throw new UnsupportedOperationException();
 	}
 
-	private void castRay(int nX, int nY, int j, int i) {
+	private Camera castRay(int nX, int nY, int j, int i) {
 		Ray ray=constructRay(nX, nY, j, i);	//יוצרת קרן
 		Color color = rayTracer.traceRay(ray);	//מוצאת את הצבע שבו פוגעת הקרן
 		imageWriter.writePixel(j,i,color);	//צובעת את הפיקסל בתמונה עצמה
+	return this;
 	}
 
 	/**
@@ -63,11 +65,12 @@ public class Camera implements Cloneable{// שיבוט של אובייקט קי�
 	 * @param interval square edges size
 	 * @param color grid's color
 	 */
-	public void printGrid(int interval, Color color) {
+	public Camera printGrid(int interval, Color color) {
 		for (int j = 0; j < imageWriter.getNx(); j++)
 			for (int i = 0; i < imageWriter.getNy(); i++)
 				if (isZero(j % interval) || isZero(i % interval))
 					imageWriter.writePixel(j, i, color);
+		return this;
 	}
 
 public Ray constructRay(int nX, int nY, int j, int i) {

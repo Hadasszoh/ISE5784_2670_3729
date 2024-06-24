@@ -50,50 +50,40 @@ public class Sphere extends RadialGeometry {
 		return "Sphere{" + "center=" + center + ", radius=" + radius + '}';
 	}
 	
-	@Override
-	public List<Point> findIntersections(Ray ray) {
-
-		Point p0 = ray.getPoint();
-		Vector v = ray.getVector();
-		Vector u;
-
-		try {
-			u = center.subtract(p0); // p0 == center the ray start from the center of the sphere
-		} catch (IllegalArgumentException e) {
-			return List.of(Util.isZero(this.radius) ? p0 : p0.add(ray.getVector().scale(this.radius)));
-		}
-
-		double tm = Util.alignZero(v.dotProduct(u));
-		double dSquared = u.lengthSquared() - tm * tm;
-		double thSquared = Util.alignZero(this.radius * this.radius - dSquared);
-
-		if (thSquared <= 0)
-			return null;// no intersections
-
-		double th = Util.alignZero(Math.sqrt(thSquared));
-		if (th == 0)
-			return null;// ray tangent to sphere
-
-		double t1 = Util.alignZero(tm - th);
-		double t2 = Util.alignZero(tm + th);
-
-		// ray starts after sphere
-		if (Util.alignZero(t1) <= 0 && Util.alignZero(t2) <= 0)
-			return null;
-
-		// 2 intersections
-		if (Util.alignZero(t1) > 0 && Util.alignZero(t2) > 0) {
-			// P1 , P2
-			return List.of(Util.isZero(t1) ? p0 : p0.add(ray.getVector().scale(t1)),
-					Util.isZero(t2) ? p0 : p0.add(ray.getVector().scale(t2)));
-		}
-
-		// 1 intersection
-		if (Util.alignZero(t1) > 0)
-			return List.of(Util.isZero(t1) ? p0 : p0.add(ray.getVector().scale(t1)));
-		else
-			return List.of(Util.isZero(t2) ? p0 : p0.add(ray.getVector().scale(t2)));
-	}
-
-
+	/**
+     * Finds the intersections of a given ray with the geometry of the object.
+     *
+     * @param  ray  the ray to find intersections with
+     * @return      a list of GeoPoint objects representing the intersections, or null if there are no intersections
+     */
+    @Override
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        double d;
+        double Tm=0;
+        if (center.equals(ray.getPoint())) {
+            d = 0;
+        }
+        else {
+            Vector u = center.subtract(ray.getPoint());
+            Tm = ray.getVector().dotProduct(u);
+            d = Math.sqrt(u.lengthSquared() - Tm * Tm);
+            if (d >= radius) {
+                return null;
+            }
+        }
+        double Th = Math.sqrt(radius * radius - d * d);
+        double t1 = Tm - Th;
+        double t2 = Tm + Th;
+        if (t1 > 0 && t2 > 0 && t1 != t2) {
+            return List.of(new GeoPoint(this,ray.getPoint(t1)),new GeoPoint(this,ray.getPoint(t2)));
+        }
+        if (t1 > 0) {
+            return List.of(new GeoPoint(this,ray.getPoint(t1)));
+        }
+        if (t2 > 0) {
+            return List.of(new GeoPoint(this,ray.getPoint(t2)));
+        }
+        return null;
+    }
 }
+

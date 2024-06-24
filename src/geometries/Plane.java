@@ -6,12 +6,12 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 import primitives.Util;
-
+import static primitives.Util.*;
 /**
  * The Plane class represents a plane in 3D space, defined by a point on the plane and a normal vector.
  * It implements the Geometry interface.
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     /**
      * A point on the plane.
      */
@@ -90,47 +90,25 @@ public class Plane implements Geometry {
     public String toString() {
         return "Plane{" + "point=" + point + ", normal=" + normal + '}';
     }
-    
+    /**
+     * Finds the intersections of a given ray with the geometry represented by the class.
+     *
+     * @param  ray  the ray to find intersections with
+     * @return      a list of GeoPoint objects representing the intersections, or null if no intersections found
+     */
     @Override
-	public List<Point> findIntersections(Ray ray) {
-		Point rayP0 = ray.getPoint();
-		Vector rayDirection = ray.getVector();
-
-		// Ray starts begins in the same point which appears as reference point in the
-		// plane (0 points)
-		if (rayP0 == this.point)
-			return null;
-
-		/**
-		 * calculate the dotProduct between the ray direction and normal plane
-		 */
-		double dotProduct = this.normal.dotProduct(rayDirection);
-
-		// Checking whether the plane and the ray intersect each other or are parallel
-		// to each other
-		if (Util.isZero(dotProduct)) {
-			return null;
-		}
-
-		// direction to plane p0 from ray p0
-		Vector p0direction = point.subtract(rayP0);
-
-		/**
-		 * checking if direction of ray is to plane if directionRayScale < 0 the ray
-		 * direction of the beam is not to the surface of plane if directionRayScale = 0
-		 * the ray is on surface of plane if directionRayScale > 0 the ray direction of
-		 * the beam is cut the surface of plane
-		 */
-		double directionRayScale = Util.alignZero(this.normal.dotProduct(p0direction) / dotProduct);
-
-		if (directionRayScale > 0) {
-			// find the intersection by dot product between the direction to plane from the
-			// po ray and
-			// directionRayScale (which calculates the distance between the point and the
-			// surface in the given direction)
-			return List.of(rayP0.add(rayDirection.scale(directionRayScale)));
-		}
-
-		return null;
-	}
+    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        double numerator = normal.dotProduct(point.subtract(ray.getPoint()));
+        double denominator = normal.dotProduct(ray.getVector());
+        if (isZero(denominator))
+        {
+            return null;
+        }
+        double t = alignZero(numerator / denominator);
+        if (t > 0)
+        {
+            return List.of(new GeoPoint(this,ray.getPoint(t)));
+        }
+        return null;
+    }
 }
