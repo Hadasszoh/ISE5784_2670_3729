@@ -12,12 +12,12 @@ import geometries.Intersectable.GeoPoint;
  * Abstract class Geometry is the base class for all geometries in this project.
  */
 public abstract class Geometry extends Intersectable {
-    protected Color emission = Color.BLACK;
+    protected Color emission = Color.BLACK; 
     private Material material = new Material();
 
 
     /**
-     * Retrieves the emission color.
+     * Retrieves the emission color.// זה תאורה עצמית 
      *
      * @return         	the emission color
      */

@@ -15,7 +15,7 @@ public interface LightSource {
      * @param p        the point at which to calculate the intensity
      * @return         the intensity color
      */
-    public Color getIntensity(Point p);
+    public Color getIntensity(Point p);//מחזיר את התאורה בנקודה ספציפית 
 
 	/**
 	 * Retrieves the vector from the specified point.

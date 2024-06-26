@@ -14,7 +14,7 @@ public abstract class Intersectable {
     /**
      * The geometry that was hit.
      */
-    public static class GeoPoint {
+    public static class GeoPoint {// אנחנו נוספנו כם את המחלקה הזאת בשביל הצביעה - עכשיו זה מחזיר לי גם גוף וגם נקודה 
         /**
          * The geometry that was hit.
          */
@@ -28,7 +28,7 @@ public abstract class Intersectable {
          * @param geometry
          * @param point
          */
-        public GeoPoint(Geometry geometry, Point point) {
+        public GeoPoint(Geometry geometry, Point point) { 
             this.geometry = geometry;
             this.point = point;
         }

@@ -83,7 +83,7 @@ public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
         Vector l = lightSource.getL(intersection.point);
         double nl = alignZero(n.dotProduct(l));
 
-        if (nl * nv > 0) { // sign(nl) == sign(nv)
+        if (nl * nv > 0) { // sign(nl) == sign(nv) // נורמל, תאורה כיוון מצלמה - הבדיקה בודקת אם כיוון תאורה וכיוון מצלמה לאותו כיוון 
         Color lightIntensity = lightSource.getIntensity(intersection.point);
         color = color.add(calcDiffuse(kd, nl, lightIntensity),
         calcSpecular(ks, l, n, nl, v, nShininess, lightIntensity));
@@ -95,7 +95,7 @@ public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
         /**
          * Calculates the diffuse component of light reflection.
          *
-         * @param kd             The diffuse reflection coefficient.
+         * @param kd             The diffuse reflection coefficient. חדות 
          * @param nl             The dot product between the normal vector and the light
          *                       vector.
          * @param lightIntensity The intensity of the light source.
@@ -108,7 +108,7 @@ public class SimpleRayTracer extends RayTracerBase {//  יורשת מ-ray trace
         /**
          * Calculates the specular component of light reflection.
          *
-         * @param ks             The specular reflection coefficient.
+         * @param ks             The specular reflection coefficient.פיזור 
          * @param l              The light vector.
          * @param n              The normal vector.
          * @param nl             The dot product between the normal vector and the light

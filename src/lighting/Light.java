@@ -20,7 +20,7 @@ abstract class Light {
      *
      * @return         the intensity color
      */
-    public Color getIntensity() {
+    public Color getIntensity() { //בלי פרמטרים 
         return intensity;
     }
 }
