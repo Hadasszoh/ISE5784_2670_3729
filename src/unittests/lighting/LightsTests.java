@@ -103,7 +103,7 @@ public class LightsTests {
          .writeToImage();
    }
 
-   /** Produce a picture of a sphere lighted by a point light */
+   /** Produce a picture of a sphere lighted by a  point light */
    @Test
    public void spherePoint() {
       scene1.geometries.add(sphere);
@@ -122,7 +122,6 @@ public class LightsTests {
       scene1.geometries.add(sphere);
       scene1.lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
          .setKl(0.001).setKq(0.0001));
-
       camera1.setImageWriter(new ImageWriter("lightSphereSpot", 500, 500))
          .build()
          .renderImage()
