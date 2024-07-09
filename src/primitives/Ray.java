@@ -13,6 +13,7 @@ public class Ray {
 	 * @param p
 	 * @param v
 	 */
+	private static final double DELTA = 0.1;
 	public Ray(Point point, Vector vector) {
 		this.point = point;
 		this.vector = vector.normalize();
@@ -92,4 +93,20 @@ public class Ray {
         }
         return closestPoint;
     }
+
+/**
+ * Constructor for ray deflected by DELTA
+ *
+ * @param p origin
+ * @param n   normal vector
+ * @param dir direction
+ */
+public Ray(Point p, Vector n, Vector dir) {
+    this.vector = dir.normalize();
+    double nv = n.dotProduct(this.vector);
+    Vector delta  =n.scale(DELTA);
+    if (nv < 0)
+        delta = delta.scale(-1);
+    this.point = p.add(delta);
+}
 }
